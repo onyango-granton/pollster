@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from django.http import Http404
 
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 from .models import Question, Choice
 
@@ -18,3 +20,8 @@ def detail(request, question_id):
     except Question.DoesNotExist:
         raise Http404("Question Does not exsist")
     return render(request, "polls/results.html", {'question':question})
+
+# Get question and display results
+def results(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/results.html', {'question':question})
